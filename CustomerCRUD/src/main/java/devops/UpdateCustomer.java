@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -38,26 +39,41 @@ public class UpdateCustomer extends HttpServlet {
 		pw.println("trying to connect..");
 
 
-		check = update(name, address, contactNumber, alternateContactNumber, specialty, qualificationSummary, param_id);
-		// ResultSet rs;
+		HttpSession s1 = request.getSession(false);
+		AuthUsers user =(AuthUsers) s1.getAttribute("user");
+		
+		if ( user != null )
+		{
+		    check = update(name, address, contactNumber, alternateContactNumber, specialty, qualificationSummary, param_id);
+		}
+		else
+		{
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return; // return from the method and stop the execution of the remnant of the code.
+		}
 
+		
+		
+		
 		if (check == 0) {
 			request.setAttribute("update_fail_message", "Failed to Update Customer Data");
-			request.getRequestDispatcher("./view/display.jsp").forward(request, response);
+			request.getRequestDispatcher("display.jsp").forward(request, response);
 		}
 
 		else {
 			request.setAttribute("update_success_message", "Customer Data Updated Successfully");
-			request.getRequestDispatcher("./view/display.jsp").forward(request, response);
+			request.getRequestDispatcher("display.jsp").forward(request, response);
 		}
 	}
 
 	public int update(String name, String address, String contactNumber, String alternateContactNumber, String specialty, String qualificationSummary, int param_id)
 			throws ServletException, IOException {
-		int check = 0;
+		int check = 1;
 	   	System.out.println("Maven + Hibernate + MySQL");
 	    	
 	        Session session = HibernateUtil.getSessionFactory().openSession();
+	        
+	        try {
 	        
 	        session.beginTransaction();
 	 
@@ -73,6 +89,16 @@ public class UpdateCustomer extends HttpServlet {
 	        
 	        session.flush();
 	        session.getTransaction().commit();
+	        }
+	       
+	        
+	        catch(HibernateException e) {
+	        	check = 0;
+	        }
+	        finally {
+	        	session.close();
+	        }
+	        
 
 		return check;
 	}

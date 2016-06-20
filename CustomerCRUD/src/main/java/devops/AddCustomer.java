@@ -7,7 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import java.sql.*;
@@ -32,23 +34,43 @@ public class AddCustomer extends HttpServlet {
 
 		pw.println("Values Inputted");
 
-		if (add(name, address, contactNumber, alternateContactNumber, specialty, qualificationSummary) == 0) {
+		
+        int checkResult;
+		
+		HttpSession s1 = request.getSession(false);
+		AuthUsers user =(AuthUsers) s1.getAttribute("user");
+		
+		if ( user != null )
+		{
+		 checkResult = add(name, address, contactNumber, alternateContactNumber, specialty, qualificationSummary);
+
+		}
+		else
+		{
+		    request.getRequestDispatcher("login.jsp").forward(request, response);
+			return; // return from the method and stop the execution of the remnant of the code yourself.
+		}
+		
+		
+		if ( checkResult == 0) {
 			request.setAttribute("add_fail_message", "Failed to Add new Customer.");
-			request.getRequestDispatcher("./view/add_new.jsp").forward(request, response);
+			request.getRequestDispatcher("add_new.jsp").forward(request, response);
 		}
 
 		else {
 			request.setAttribute("add_success_message", "New Customer Added to Database.");
-			request.getRequestDispatcher("./view/add_new.jsp").forward(request, response);
+			request.getRequestDispatcher("add_new.jsp").forward(request, response);
 		}
 	}
 
 	public int add(String name, String address, String contactNumber, String alternateContactNumber, String specialty, String qualificationSummary)
 			throws ServletException, IOException {
-		int check = 0;
+		int check = 1;
    	System.out.println("Maven + Hibernate + MySQL");
     	
         Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
         
         session.beginTransaction();
         Customer c1 = new Customer();
@@ -63,7 +85,17 @@ public class AddCustomer extends HttpServlet {
         session.save(c1);
         session.flush();
         session.getTransaction().commit();
+        
+        }
+        	
+        
+       catch(HibernateException e) {
+    	 check = 0;
+       }
+        
+        finally {
         session.close();
+        }
         
 
 			//check = prep.executeUpdate();
