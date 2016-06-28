@@ -2,12 +2,14 @@ package devops;
 
 
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
 	
+	private static final Logger logger = Logger.getLogger(HexConnection.class);
 	private static final SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
@@ -18,6 +20,7 @@ public class HibernateUtil {
         catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed ::" + ex);
+            logger.error(ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

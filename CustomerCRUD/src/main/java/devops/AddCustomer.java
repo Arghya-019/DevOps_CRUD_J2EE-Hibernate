@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -18,6 +19,7 @@ import java.util.Properties;
 public class AddCustomer extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(HexConnection.class);
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -91,6 +93,7 @@ public class AddCustomer extends HttpServlet {
         
        catch(HibernateException e) {
     	 check = 0;
+    	 logger.error(e);
        }
         
         finally {

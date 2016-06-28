@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.junit.Test;
@@ -18,6 +19,9 @@ import java.util.Properties;
 import javax.servlet.http.*;
 
 public class UpdateCustomer extends HttpServlet {
+	
+	private static final Logger logger = Logger.getLogger(HexConnection.class);
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -57,12 +61,15 @@ public class UpdateCustomer extends HttpServlet {
 		
 		if (check == 0) {
 			request.setAttribute("update_fail_message", "Failed to Update Customer Data");
-			request.getRequestDispatcher("display.jsp").forward(request, response);
+			request.getRequestDispatcher("update.jsp?id="+param_id).forward(request, response);
+			
 		}
 
 		else {
+			
 			request.setAttribute("update_success_message", "Customer Data Updated Successfully");
-			request.getRequestDispatcher("display.jsp").forward(request, response);
+			request.getRequestDispatcher("update.jsp?id="+param_id).forward(request, response);
+			
 		}
 	}
 
@@ -94,6 +101,7 @@ public class UpdateCustomer extends HttpServlet {
 	        
 	        catch(HibernateException e) {
 	        	check = 0;
+	        	logger.error(e);
 	        }
 	        finally {
 	        	session.close();

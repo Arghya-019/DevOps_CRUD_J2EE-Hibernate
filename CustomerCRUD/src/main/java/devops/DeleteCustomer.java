@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
@@ -16,43 +17,50 @@ import java.sql.*;
 import java.util.Properties;
 
 public class DeleteCustomer extends HttpServlet {
+	
+	private static final Logger logger = Logger.getLogger(HexConnection.class);
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter pw = response.getWriter();
 		
-		int param_id = Integer.parseInt(request.getParameter("id")); // Emp iD to be deleted
-		
-		pw.println(param_id);
 		int check = 0;
 		pw.println("trying to connect..");
-		Connection connection = null;
-		// ResultSet rs;
 		
 		
 		HttpSession s1 = request.getSession(false);
 		AuthUsers user =(AuthUsers) s1.getAttribute("user");
 		
 		if (user != null) {
-		
+			
+	    int param_id = Integer.parseInt(request.getParameter("id")); // Emp iD to be deleted
+	    //pw.println(param_id);
+	    
 		check = delete(param_id);
 		
 		}
 		
 		else
 		{
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			response.sendRedirect("login.jsp");
+
+			//request.getRequestDispatcher("login.jsp").forward(request, response);
 			return; // return from the method and stop the execution of the remnant of the code.
 		} 
 		
 		if (check == 0) {
-			request.setAttribute("delete_fail_message", "Failed to delete Customer Data");
-			request.getRequestDispatcher("display.jsp").forward(request, response);
+			//request.setAttribute("delete_fail_message", "Failed to delete Customer Data");
+			request.getRequestDispatcher("GetData").forward(request, response);
+		
 		}
+		
 
 		else {
 
-			request.setAttribute("delete_success_message", "Customer data Deleted Successfully.");
-			request.getRequestDispatcher("display.jsp").forward(request, response);
+			//request.setAttribute("delete_success_message", "Customer data Deleted Successfully.");
+			request.getRequestDispatcher("GetData").forward(request, response);
+			
+			
 		}
 	}
 
@@ -77,6 +85,7 @@ public class DeleteCustomer extends HttpServlet {
         catch(HibernateException e)
         {
         	check = 0;
+        	logger.error(e);
         }
         
         finally {

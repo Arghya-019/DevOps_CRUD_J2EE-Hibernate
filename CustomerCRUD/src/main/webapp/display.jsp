@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <html>
 <head>
 <style>
@@ -56,6 +57,7 @@ hr {
 
              <%
                 // AuthUsers user = (AuthUsers) session.getAttribute("user");
+               
              %> 
 </head>
 <body>
@@ -99,12 +101,33 @@ hr {
             
 			/*List<Customer> customers  = (List<Customer>)request.getAttribute("customers"); */
               AuthUsers user = (AuthUsers) session.getAttribute("user");
-			  session.setAttribute("user",user);
+			
+			 // session.setAttribute("user",user);
+       
+			 
             %>
             
+            
+            <h2> <%=session.getId()%> </h2>
+            
+            
 			<%
-			 GetDataService data = new GetDataService();
-			 List<Customer> customers = data.getList(user);
+			for (String sname : session.getValueNames()) { 
+				System.out.println("sname::"+sname );
+				
+			}
+			System.out.println("JSESSIONID::"+request.getAttribute("JSESSIONID") );
+			 //GetDataService data = new GetDataService();
+			 //List<Customer> customers = data.getList(response,user);
+			 
+			 List<Customer> customers  = (List<Customer>)request.getAttribute("customers");
+			 
+			 if (customers == null)
+			 {
+				 response.sendRedirect("login.jsp");
+			 }
+			 
+			 else {
 			 
 			 for (Customer cust1 : customers) { 
 			
@@ -129,16 +152,17 @@ hr {
 
 			</tr>
 			<%
-				}
+				} }
 			%>
 
 		</table>
 	</form>
 
-	<div class="msg_position" style="color: #FF0000;">${update_fail_message}</div>
-	<div class="msg_position" style="color: #009933;">${update_success_message}</div>
+	
 	<div class="msg_position" style="color: #FF0000;">${delete_fail_message}</div>
 	<div class="msg_position" style="color: #009933;">${delete_success_message}</div>
+	
+	
 	<br/>
 	<hr>
 	<br/>

@@ -7,6 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="validation.js">
+
+</script>
+
 <style>
 
 
@@ -58,7 +63,12 @@ body {
 	       <%
 	
     AuthUsers user = (AuthUsers) session.getAttribute("user");  
-    session.setAttribute("user",user);
+    //session.setAttribute("user",user);
+    
+     if (user ==  null)
+             {
+            	 response.sendRedirect("login.jsp");
+             }
     
     
            %>
@@ -75,7 +85,7 @@ body {
 	<div  style="margin-left: 5em;">
 	<h3>Add Customer</h3>
 	<hr/>
-	<FORM METHOD="POST" ACTION="add">
+	<FORM NAME="Add_form" METHOD="POST" ACTION="add" >
 		<TABLE   cellspacing="1">
 			<TR>
 				<TD><h5>Name</h5></TD>
@@ -89,7 +99,7 @@ body {
 			</TR>
 			<TR>
 				<TD><h5>Contact Number</h5></TD>
-				<TD><INPUT TYPE="TEXT" NAME="contactNumber" SIZE="25" required>
+				<TD><INPUT TYPE="TEXT" NAME="contactNumber" SIZE="25" id="PhNo" required>
 				</TD>
 			</TR>
 			<TR>
@@ -108,8 +118,8 @@ body {
 			</TR>
 			<TR>
 				<TD></TD>
-				<TD><INPUT TYPE="SUBMIT" VALUE="Create" NAME="B1">
-				<INPUT TYPE="RESET" VALUE="Reset" NAME="B2"></TD>
+				<TD><BUTTON TYPE="SUBMIT" VALUE="Create" NAME="B1" onclick="return validatePhoneNo();">Submit</BUTTON>
+				<BUTTON TYPE="RESET" VALUE="Reset" NAME="B2"></BUTTON>Reset</TD>
 			</TR>
 
 		</TABLE>
@@ -117,7 +127,7 @@ body {
 	<br/>
 	<div class="msg_position" style="color: #FF0000;">${add_fail_message}</div>
 	<div class="msg_position" style="color: #009933;">${add_success_message}</div>
-	<a href="display.jsp"> Back to Customer List</a><br/><br/>
+	<a href="GetData"> Back to Customer List</a><br/><br/>
 	<br/>
 	<hr>
 	<br/>

@@ -47,6 +47,8 @@ body {
 </head>
 <body>
 
+<%@ page session="false" %>
+
 
 	<div id="header" style="background-color: #add8e6;">
 		<TABLE class="headerclass">

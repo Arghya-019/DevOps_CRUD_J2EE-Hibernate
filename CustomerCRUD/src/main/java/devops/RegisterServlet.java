@@ -8,11 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
  
  
 public class RegisterServlet extends HttpServlet {
+	
+	
+	private static final Logger logger = Logger.getLogger(HexConnection.class);
+	
+	
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     
@@ -60,6 +66,8 @@ public class RegisterServlet extends HttpServlet {
      
     catch(HibernateException e) {
  	 check = 0;
+ 	 logger.error(e);
+ 	 
     }
      
      finally {

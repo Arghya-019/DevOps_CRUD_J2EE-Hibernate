@@ -19,17 +19,18 @@ import java.io.PrintWriter;
 
 public class GetData extends HttpServlet {
 	
-	 public void doPost(HttpServletRequest request, HttpServletResponse response)
+	 public void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 		 
 		 PrintWriter out=response.getWriter();  
 	
 	HttpSession session = request.getSession();
 	AuthUsers user = (AuthUsers) session.getAttribute("user");
+	GetDataService data = new GetDataService();
+	List<Customer> customers = data.getList(response,user);
 	
-	out.print("The session attribute ::" + user);
-	
-    session.setAttribute("user", user);  
+	request.setAttribute("customers", customers);
+	request.getRequestDispatcher("display.jsp").forward(request, response);
     
 	 }
 

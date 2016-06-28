@@ -55,10 +55,18 @@ hr {
 
 
 <%
-	int clickedLinkId = Integer.parseInt(request.getParameter("id"));
-    AuthUsers user = (AuthUsers)session.getAttribute("user");  
-    session.setAttribute("user",user);
+    AuthUsers user = (AuthUsers)session.getAttribute("user");
+if (user == null) {
+	
+     
+    //session.setAttribute("user",user);  (Dont need to set it again. Valid throughout session)
+             
+    // The session has been expired (or a hacker supplied a fake cookie)
+            	 response.sendRedirect("login.jsp");
+             }
     
+    else {
+    	int clickedLinkId = Integer.parseInt(request.getParameter("id"));
     
 %>
 
@@ -90,6 +98,9 @@ hr {
 		  	}
 					 
 	%>
+	
+	
+	
 	<div id="header" style="background-color: #add8e6;">
 		<TABLE class="headerclass">
 			<tr>
@@ -145,15 +156,18 @@ hr {
 
 			</TABLE>
 		</FORM>
-	
-	<%
-
-	
-	//session close and flush
-	
+		
+		<%
+    }
 	
 	%>
-	<a href="display.jsp"> Back to Customer List</a>
+		
+		<br/>
+		
+		<div class="msg_position" style="color: #FF0000;">${update_fail_message}</div>
+	    <div class="msg_position" style="color: #009933;">${update_success_message}</div>
+    
+	<a href="GetData"> Back to Customer List</a>
 	<br/>
 	<hr/>
 	<br/>

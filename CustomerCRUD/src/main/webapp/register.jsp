@@ -1,26 +1,7 @@
 <html>
 <head>
-<script>
-function validatePassword()
-{
-     var new_password = document.getElementById("pass1").value;
-     var confirm_new_password = document.getElementById("pass2").value;
+<script src="validation.js">
 
-     if (new_password.length < 3)
-     {
-         alert("Please ensure your password is at least 3 characters long.");
-         return false;
-     }
-     else if ( new_password != confirm_new_password)
-     {
-         alert("Passwords do not match.");
-         return false;
-     }
-     else
-     {
-          return true;
-     }
- }
 </script>
 
 <style>
@@ -81,7 +62,7 @@ body {
 	
 <div  style="margin-left: 5em;">
 
-<form action="RegisterServlet" method="post" id="registerform">
+<form action="RegisterServlet" method="post" name="Registration" id="registerform">
 
 <fieldset style="padding:20px;top:230px;left:450px; position: absolute;"> 
 
@@ -109,7 +90,7 @@ body {
 
 <TR>
     
-	<TD><button type="submit" form="registerform" value="Register!" onclick="return validatePassword();">Submit</button></TD>
+	<TD><button type="submit" form="registerform" value="Register!" onclick="return validate();">Submit</button></TD>
 	
 </TR>
 
