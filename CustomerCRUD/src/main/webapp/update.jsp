@@ -171,7 +171,7 @@ if (user == null) {
 	<br/>
 	<hr/>
 	<br/>
-	<footer>&#169; Hexaware Technologies Limited </footer>
+	<footer>&#169; Hexaware Technologies Limited. All rights reserved 2016 </footer>
 	<br/>
 	</div>
 </body>

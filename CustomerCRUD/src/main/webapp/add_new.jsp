@@ -119,7 +119,7 @@ body {
 			<TR>
 				<TD></TD>
 				<TD><BUTTON TYPE="SUBMIT" VALUE="Create" NAME="B1" onclick="return validatePhoneNo();">Submit</BUTTON>
-				<BUTTON TYPE="RESET" VALUE="Reset" NAME="B2"></BUTTON>Reset</TD>
+				<BUTTON TYPE="RESET" VALUE="Reset" NAME="B2">Reset</BUTTON></TD>
 			</TR>
 
 		</TABLE>
@@ -131,7 +131,7 @@ body {
 	<br/>
 	<hr>
 	<br/>
-	<footer>&#169; Hexaware Technologies Limited </footer>
+	<footer>&#169; Hexaware Technologies Limited. All rights reserved 2016 </footer>
 	</div>
 </body>
 </html>

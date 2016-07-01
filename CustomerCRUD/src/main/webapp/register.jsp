@@ -6,6 +6,17 @@
 
 <style>
 
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+    position: relative;
+}
+.footer, .push {
+    height: 142px; /* .push must be the same height as .footer */
+}
+
 legend {
     display: block;
     padding-left: 2px;
@@ -50,6 +61,8 @@ body {
 </head>
 <body>
 
+<div class="wrapper">
+
 	<div id="header" style="background-color: #add8e6;">
 		<TABLE class="headerclass">
 			<tr>
@@ -60,7 +73,7 @@ body {
 		</TABLE>
 	</div>
 	
-<div  style="margin-left: 5em;">
+
 
 <form action="RegisterServlet" method="post" name="Registration" id="registerform">
 
@@ -91,13 +104,21 @@ body {
 <TR>
     
 	<TD><button type="submit" form="registerform" value="Register!" onclick="return validate();">Submit</button></TD>
+	<TD><a href="login.jsp">Login</a></TD>
 	
 </TR>
 
 </TABLE>
+
+<div id="msg_position" style="color: #FF0000;">${register_fail_message}</div>
+
 </fieldset> 
 </form>
 
+</div>
+
+<div class="footer">
+<footer style="position: absolute; left: 60px;">&#169; Hexaware Technologies Limited. All rights reserved 2016 </footer>
 </div>
 
 </body>

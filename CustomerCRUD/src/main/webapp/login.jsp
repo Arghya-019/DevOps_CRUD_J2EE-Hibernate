@@ -3,6 +3,18 @@
 
 <style>
 
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+    position: relative;
+}
+.footer, .push {
+    height: 142px; /* .push must be the same height as .footer */
+}
+
+
 legend {
     display: block;
     padding-left: 2px;
@@ -18,16 +30,6 @@ legend {
 	margin-left: -1em;
 	border-bottom: 1px solid black;
 } 
-
-#footer {
-	clear: both;
-	position: relative;
-	z-index: 10;
-	height: 3em;
-	margin-top: -3em;
-
-}
-
 
 form {
 	font-size: 14px;
@@ -49,6 +51,7 @@ body {
 
 <%@ page session="false" %>
 
+<div class="wrapper">
 
 	<div id="header" style="background-color: #add8e6;">
 		<TABLE class="headerclass">
@@ -68,6 +71,7 @@ body {
 
 <legend>Login</legend>
 
+
 <TABLE cellpadding="5">
 
 
@@ -86,14 +90,24 @@ body {
 	     <TD><a href="register.jsp">Register</a></TD>
 </TR>
 
-
 </TABLE>
+
+<div id="msg_position" style="color: #FF0000;">${login_fail_message}</div>
+
 </fieldset>
 
 </form>
+<div class="push"></div>
 
 
-<div class="msg_position" style="color: #FF0000;position=relative;">${login_fail_message}</div>
+</div>
+
+
+
+
+<div class="footer">
+<footer style="position: absolute; left: 60px;">&#169; Hexaware Technologies Limited. All rights reserved 2016 </footer>
+</div>
 
 
 </body>

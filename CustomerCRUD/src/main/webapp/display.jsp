@@ -108,15 +108,8 @@ hr {
             %>
             
             
-            <h2> <%=session.getId()%> </h2>
-            
-            
 			<%
-			for (String sname : session.getValueNames()) { 
-				System.out.println("sname::"+sname );
-				
-			}
-			System.out.println("JSESSIONID::"+request.getAttribute("JSESSIONID") );
+			
 			 //GetDataService data = new GetDataService();
 			 //List<Customer> customers = data.getList(response,user);
 			 
@@ -166,7 +159,7 @@ hr {
 	<br/>
 	<hr>
 	<br/>
-	<footer>&#169; Hexaware Technologies Limited </footer>
+	<footer>&#169; Hexaware Technologies Limited. All rights reserved 2016 </footer>
 	</div>
 </body>
 </html>

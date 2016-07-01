@@ -32,12 +32,12 @@ public class RegisterServlet extends HttpServlet {
     // AuthUsers user = new AuthUsers(email,password);
              
      if (add(email,password) == 0) {
-			request.setAttribute("add_fail_message", "Failed to Add new Customer.");
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.setAttribute("register_fail_message", "Registration failed");
+			request.getRequestDispatcher("register.jsp").forward(request, response);
 		}
 
 		else {
-			request.setAttribute("add_success_message", "New Customer Added to Database.");
+			request.setAttribute("register_success_message", "New User registered in Database.");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}

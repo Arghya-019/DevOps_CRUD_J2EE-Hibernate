@@ -33,7 +33,7 @@ public class SessionFilter implements Filter {
 		
 		HttpSession session = req.getSession(false);
 		
-		if(session == null && !(uri.endsWith("login.jsp") || uri.endsWith("LoginServlet") || uri.endsWith("register.jsp"))){
+		if(session == null && !(uri.endsWith("login.jsp") || uri.endsWith("LoginServlet") || uri.endsWith("register.jsp") || uri.endsWith("RegisterServlet") || uri.endsWith("hexaware_logo.png"))){
 			this.context.log("Unauthorized access request");
 			res.sendRedirect("login.jsp");
 			return;
