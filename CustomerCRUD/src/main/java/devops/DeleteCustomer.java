@@ -65,7 +65,7 @@ catch(Exception ex)
 
 	}
 	
-	public int delete(int param_id)
+	public int delete(int paramID)
 			throws ServletException, IOException {
 		int check = 1;
 	 	LOGGER.info("Deleting Customer Profile from Database..");
@@ -77,7 +77,7 @@ catch(Exception ex)
         session.beginTransaction();
  
         Customer c1 = 
-                (Customer)session.get(Customer.class,param_id); 
+                (Customer)session.get(Customer.class,paramID); 
         session.delete(c1);
         
         session.flush();

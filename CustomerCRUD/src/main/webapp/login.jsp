@@ -1,53 +1,9 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>Login</title>
- <link rel="shortcut icon" href="favicon.ico" />
 
-<style>
-
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
-    position: relative;
-}
-.footer, .push {
-    height: 142px; /* .push must be the same height as .footer */
-}
-
-
-legend {
-    display: block;
-    padding-left: 2px;
-    padding-right: 2px;
-    border: none;
-    font-size: 20px;
-}
-
- #header {
-	position: relative;
-	height: 7em;
-	margin-top: -1em;
-	margin-left: -1em;
-	border-bottom: 1px solid black;
-} 
-
-form {
-	font-size: 14px;
-	font-family: Helvetica, Arial, sans-serif;
-	color: rgb(51, 51, 51);
-}
-
-body {
-	font-size: 14px;
-	font-family: Helvetica, Arial, sans-serif;
-	color: rgb(51, 51, 51);
-}
-
-
-</style>
+<title>UserLogin</title>
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="PageStyle.css">
 
 </head>
 <body>

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Add</title>
+<title>CustomerAdd</title>
  <link rel="shortcut icon" href="favicon.ico" />
 
 <script src="validation.js">

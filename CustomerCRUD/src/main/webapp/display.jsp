@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Display</title>
+<title>CustomerDisplay</title>
  <link rel="shortcut icon" href="favicon.ico" />
 
 <style>

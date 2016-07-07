@@ -1,7 +1,4 @@
 package devops;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -17,9 +14,7 @@ public class HexConnection {
 
 		try {
 			Properties prop = new Properties();
-			
-
-			InputStream input = null;
+		
 			String filename = "database_config.properties";
 			LOGGER.info("prop.load started" + filename);
 			prop.load(getClass().getClassLoader().getResourceAsStream(filename));
