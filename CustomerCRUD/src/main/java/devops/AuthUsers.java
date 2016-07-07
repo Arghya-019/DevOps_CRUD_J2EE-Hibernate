@@ -6,7 +6,7 @@ private int id;
 private String email;
 private String password;
 
-public AuthUsers() {
+public AuthUsers() {  /* This is a no-argument constructor of class AuthUsers */
 }
 
 public AuthUsers(String email,String password)

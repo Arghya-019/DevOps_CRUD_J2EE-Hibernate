@@ -1,5 +1,8 @@
+<!DOCTYPE html>
 <html>
 <head>
+<title>Login</title>
+ <link rel="shortcut icon" href="favicon.ico" />
 
 <style>
 

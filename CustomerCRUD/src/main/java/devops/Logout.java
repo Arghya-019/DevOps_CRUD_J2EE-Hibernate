@@ -1,29 +1,38 @@
 package devops;
 
-import java.io.IOException;  
-import java.io.PrintWriter;  
+import java.io.IOException;   
   
+
 import javax.servlet.ServletException;  
 import javax.servlet.http.HttpServlet;  
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpServletResponse;  
 import javax.servlet.http.HttpSession;  
-public class Logout extends HttpServlet {  
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)  
+import org.apache.log4j.Logger;
+
+public class Logout extends HttpServlet {
+	
+	private static final Logger LOGGER = Logger.getLogger(HexConnection.class);
+	
+	   @Override
+	   protected void doGet(HttpServletRequest request, HttpServletResponse response)  
                                 throws ServletException, IOException {  
-            response.setContentType("text/html");  
-            PrintWriter out=response.getWriter();  
-              
+            response.setContentType("text/html");    
+            
+       try {     
+            
             request.getRequestDispatcher("login.jsp").include(request, response);  
-              
             HttpSession session=request.getSession();  
             session.removeAttribute("email");
             session.removeAttribute("password");
-            session.invalidate();  
+            session.invalidate(); 
+       }
+       catch(Exception ex)
+       {
+    	    LOGGER.error(ex);
+       }
               
-            // System.out.println(email);
-            System.out.println("You are successfully logged out!");  
-              
-            out.close();  
+            LOGGER.info("You are successfully logged out!");  
+               
     }  
 }

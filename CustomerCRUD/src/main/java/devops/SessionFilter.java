@@ -1,7 +1,5 @@
 package devops;
-
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,12 +15,12 @@ import javax.servlet.http.HttpSession;
 public class SessionFilter implements Filter {
 
 	private ServletContext context;
-	
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.context = fConfig.getServletContext();
 		this.context.log("SessionAuthenticationFilter initialized");
 	}
-	
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -46,7 +44,7 @@ public class SessionFilter implements Filter {
 	}
 
 	
-
+@Override
 	public void destroy() {
 		//close any resources here
 	}

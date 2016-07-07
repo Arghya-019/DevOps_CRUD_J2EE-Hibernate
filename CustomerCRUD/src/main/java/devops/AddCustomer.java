@@ -1,8 +1,5 @@
 package devops;
-import java.io.PrintWriter;
 import java.io.IOException;
-import java.io.InputStream;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,17 +10,16 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import java.sql.*;
-import java.util.Properties;
 
 public class AddCustomer extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(HexConnection.class);
+	private static final Logger LOGGER = Logger.getLogger(HexConnection.class);
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		PrintWriter pw = response.getWriter();
+		
 		
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
@@ -31,10 +27,6 @@ public class AddCustomer extends HttpServlet {
 		String alternateContactNumber = request.getParameter("alternateContactNumber");
 		String specialty = request.getParameter("specialty");
 		String qualificationSummary = request.getParameter("qualificationSummary");
-		
-		pw.println("trying to connect..");
-
-		pw.println("Values Inputted");
 
 		
         int checkResult;
@@ -42,6 +34,7 @@ public class AddCustomer extends HttpServlet {
 		HttpSession s1 = request.getSession(false);
 		AuthUsers user =(AuthUsers) s1.getAttribute("user");
 		
+	try {
 		if ( user != null )
 		{
 		 checkResult = add(name, address, contactNumber, alternateContactNumber, specialty, qualificationSummary);
@@ -64,11 +57,18 @@ public class AddCustomer extends HttpServlet {
 			request.getRequestDispatcher("add_new.jsp").forward(request, response);
 		}
 	}
+	
+	catch(Exception ex)
+	{
+		LOGGER.error(ex);
+	}
+	
+	}
 
 	public int add(String name, String address, String contactNumber, String alternateContactNumber, String specialty, String qualificationSummary)
 			throws ServletException, IOException {
 		int check = 1;
-   	System.out.println("Maven + Hibernate + MySQL");
+   	 LOGGER.info("Adding new Customer to Database..");
     	
         Session session = HibernateUtil.getSessionFactory().openSession();
         
@@ -93,7 +93,7 @@ public class AddCustomer extends HttpServlet {
         
        catch(HibernateException e) {
     	 check = 0;
-    	 logger.error(e);
+    	 LOGGER.error(e);
        }
         
         finally {
@@ -101,9 +101,6 @@ public class AddCustomer extends HttpServlet {
         }
         
 
-			//check = prep.executeUpdate();
-
-			//prep.close();
 		
 		return check;
 	}

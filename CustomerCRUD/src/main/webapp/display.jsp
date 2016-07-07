@@ -1,6 +1,11 @@
 <%@page import="java.io.PrintWriter"%>
+
+<!DOCTYPE html>
 <html>
 <head>
+<title>Display</title>
+ <link rel="shortcut icon" href="favicon.ico" />
+
 <style>
 form {
 	font-size: 14px;
@@ -53,12 +58,62 @@ hr {
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
 	border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-</style>
 
+.productVersionclass th{
+	font-size: 14px;
+	text-align: left;
+	padding: 8px; 
+	border: 0;
+	border-top:1pt solid #add8e6;
+  	border-bottom:1pt solid #add8e6;
+}
+
+.productVersionclass td{
+	font-size: 14px;
+	text-align: left;
+	padding: 8px; 
+	border: 0;
+	border-top:1pt solid #add8e6;
+  	border-bottom:1pt solid #add8e6;
+}
+
+.buttonL {
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+</style>
+               <%@ page import="java.util.Properties"%>
+               	<%@ page import="java.io.*"%>
+               
+               
+             
              <%
                 // AuthUsers user = (AuthUsers) session.getAttribute("user");
+                Properties prop = new Properties();
+                InputStream input = null;
+				String filename = "database_config.properties";
+				input = getClass().getClassLoader().getResourceAsStream(
+						filename);
+				if (input == null) {
+					System.out.println("Sorry, unable to find " + filename);
+					//pw.println("file not found");
+					return;
+				}
+
+				//load a properties file from class path, inside static method
+				prop.load(input);
+				String productVersion = prop.getProperty("product_version");
                
              %> 
+           
 </head>
 <body>
 
@@ -67,7 +122,15 @@ hr {
 			<tr>
 				<TD><img src="hexaware_logo.png" alt="logo" /></TD>
 				<TD><h1>DevOps Solutions</h1></TD>
-				<td>  <a href="Logout">Logout</a> </td>    
+				<td>  <a class="buttonL" href="Logout">Logout</a> </td> 
+				
+				<TD align="right" valign="bottom">
+				<TABLE class="productVersionclass">
+				<tr>
+				<TD>Product Version: <%= productVersion %></TD>
+				</tr>
+				</TABLE>
+				</TD>   
             
 			</tr>
 		</TABLE>
@@ -81,14 +144,14 @@ hr {
 	<form action="GetData" method="post">
 		<table cellspacing="50">
 			<tr >
-				<td><b>Name</b></td>
-				<td><b>Address</b></td>
-				<td><b>Contact Number</b></td>
-				<td><b>Alternate Contact Number</b></td>
-				<td><b>Specialty</b></td>
-				<td><b>Qualification Summary</b></td>
+				<td><strong>Name</strong></td>
+				<td><strong>Address</strong></td>
+				<td><strong>Contact Number</strong></td>
+				<td><strong>Alternate Contact Number</strong></td>
+				<td><strong>Specialty</strong></td>
+				<td><strong>Qualification Summary</strong></td>
 
-				<td><b>Action</b></td>
+				<td><strong>Action</strong></td>
 			</tr>
 		   
 			<%@ page import="java.util.*"%>

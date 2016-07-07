@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Update</title>
+ <link rel="shortcut icon" href="favicon.ico" />
+
 <style>
 form {
 	font-size: 14px;
@@ -53,6 +56,9 @@ hr {
 <%@ page import="org.hibernate.Session"%>
 <%@ page import="java.util.*"%>
 
+ <%@ page import="java.util.Properties"%>
+	       
+
 
 <%
     AuthUsers user = (AuthUsers)session.getAttribute("user");
@@ -96,6 +102,22 @@ if (user == null) {
 		      finally {
 		  		session1.close();
 		  	}
+		      
+		      
+		      Properties prop = new Properties();
+		      InputStream input = null;
+		 		String filename = "database_config.properties";
+		 		input = getClass().getClassLoader().getResourceAsStream(
+		 				filename);
+		 		if (input == null) {
+		 			System.out.println("Sorry, unable to find " + filename);
+		 			//pw.println("file not found");
+		 			return;
+		 		}
+
+		 		//load a properties file from class path, inside static method
+		 		prop.load(input);
+		 		String productVersion = prop.getProperty("product_version");
 					 
 	%>
 	
@@ -106,6 +128,15 @@ if (user == null) {
 			<tr>
 				<TD><img src="hexaware_logo.png" alt="logo" /></TD>
 				<TD><h1>DevOps Solutions</h1></TD>
+				
+				<TD align="right" valign="bottom">
+				<TABLE class="productVersionclass">
+				<tr>
+				<TD>Product Version: <%= productVersion %></TD>
+				</tr>
+				</TABLE>
+				</TD>
+				
 			</tr>
 		</TABLE>
 	</div>

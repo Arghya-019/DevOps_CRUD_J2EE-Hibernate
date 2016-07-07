@@ -1,22 +1,27 @@
 package devops;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
- 
-import devops.*;
+
  
 public class LoginService {
+	
+	private static final Logger LOGGER = Logger.getLogger(HexConnection.class);
  
     public boolean authenticateUser(String email1, String password) {
-        AuthUsers user = getUserByEmail(email1);         
+        AuthUsers user = getUserByEmail(email1);  
+        boolean result;
+        
         if(user!=null && user.getEmail().equals(email1) && user.getPassword().equals(password)){
-            return true;
+            result = true;
         }else{
-            return false;
+            result = false;
         }
+        return result;  // Structured Programming states that every method should have only one return 
     }
  
     public AuthUsers getUserByEmail(String email1) {
@@ -33,7 +38,7 @@ public class LoginService {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
+            LOGGER.error(e);
         } finally {
             session.close();
         }
@@ -53,7 +58,9 @@ public class LoginService {
             if (tx != null) {
                 tx.rollback();
             }
-            e.printStackTrace();
+            
+            LOGGER.error(e);
+         
         } finally {
             session.close();
         }

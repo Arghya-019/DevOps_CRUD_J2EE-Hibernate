@@ -7,6 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Add</title>
+ <link rel="shortcut icon" href="favicon.ico" />
 
 <script src="validation.js">
 
@@ -54,11 +56,15 @@ body {
 	font-family: Helvetica, Arial, sans-serif;
 	color: rgb(51, 51, 51);
 }
+
+
  </style>
 </head>
 <body>
 
 	       <%@ page import="devops.*"%>
+	       <%@ page import="java.util.Properties"%>
+	       <%@ page import="java.io.*"%>
 	       
 	       <%
 	
@@ -70,6 +76,20 @@ body {
             	 response.sendRedirect("login.jsp");
              }
     
+     Properties prop = new Properties();
+     InputStream input = null;
+		String filename = "database_config.properties";
+		input = getClass().getClassLoader().getResourceAsStream(
+				filename);
+		if (input == null) {
+			System.out.println("Sorry, unable to find " + filename);
+			//pw.println("file not found");
+			return;
+		}
+
+		//load a properties file from class path, inside static method
+		prop.load(input);
+		String productVersion = prop.getProperty("product_version");
     
            %>
 
@@ -78,6 +98,15 @@ body {
 			<tr>
 				<TD><img src="hexaware_logo.png" alt="logo" /></TD>
 				<TD><h1>DevOps Solutions</h1></TD>
+				
+				<TD align="right" valign="bottom">
+				<TABLE class="productVersionclass">
+				<tr>
+				<TD>Product Version: <%= productVersion %></TD>
+				</tr>
+				</TABLE>
+				</TD>
+				
 			</tr>
 		</TABLE>
 	</div>

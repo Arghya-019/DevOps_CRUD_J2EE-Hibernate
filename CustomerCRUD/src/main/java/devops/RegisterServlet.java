@@ -1,13 +1,9 @@
 package devops;
- 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -16,21 +12,17 @@ import org.hibernate.Session;
 public class RegisterServlet extends HttpServlet {
 	
 	
-	private static final Logger logger = Logger.getLogger(HexConnection.class);
+	private static final Logger LOGGER = Logger.getLogger(HexConnection.class);
 	
-	
+	@Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    
-     PrintWriter out = response.getWriter();
      
 
      String email = request.getParameter("email");
      String password = request.getParameter("password");
      
-     
-    // AuthUsers user = new AuthUsers(email,password);
-             
+try {             
      if (add(email,password) == 0) {
 			request.setAttribute("register_fail_message", "Registration failed");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
@@ -42,10 +34,17 @@ public class RegisterServlet extends HttpServlet {
 		}
 	}
 
+catch(Exception ex)
+{
+	LOGGER.error(ex);
+}
+
+	}
+
 	public int add(String email,String password)
 			throws ServletException, IOException {
 		int check = 1;
-	System.out.println("Maven + Hibernate + MySQL");
+	LOGGER.info("Registering new User...");
  	
      Session session = HibernateUtil.getSessionFactory().openSession();
      
@@ -66,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
      
     catch(HibernateException e) {
  	 check = 0;
- 	 logger.error(e);
+ 	 LOGGER.error(e);
  	 
     }
      
@@ -75,10 +74,6 @@ public class RegisterServlet extends HttpServlet {
      session.close();
      }
      
-
-			//check = prep.executeUpdate();
-
-			//prep.close();
 		
 		return check;
 	}

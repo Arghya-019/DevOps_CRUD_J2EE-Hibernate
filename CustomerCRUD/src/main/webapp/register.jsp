@@ -1,5 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
+<title>Register</title>
+<link rel="shortcut icon" href="favicon.ico" />
+ 
 <script src="validation.js">
 
 </script>
